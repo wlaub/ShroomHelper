@@ -20,15 +20,13 @@ namespace Celeste.Mod.ShroomHelper.Entities {
             assetKey = data.Attr("assetKey", "shroompage");
 
             enableFlag = data.Attr("enableFlag");
-            if(enableFlag[0] == '!')
-            {
+            if(enableFlag[0] == '!') {
                 enableFlagInverted = true;
                 enableFlag = enableFlag[1..];
             }
 
             readFlag = data.Attr("readFlag");
-            if(readFlag[0] == '!')
-            {
+            if(readFlag[0] == '!') {
                 readFlagInverted = true;
                 readFlag = readFlag[1..];
             }
@@ -43,8 +41,7 @@ namespace Celeste.Mod.ShroomHelper.Entities {
             Talker.PlayerMustBeFacing = false;
         }
 
-        public override void Awake(Scene scene)
-        {
+        public override void Awake(Scene scene) {
 
             if(enableFlag == "" || SceneAs<Level>().Session.GetFlag(enableFlag) != enableFlagInverted) {
                 base.Awake(scene);
