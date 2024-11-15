@@ -19,14 +19,14 @@ namespace Celeste.Mod.ShroomHelper.Entities {
             Collider = new Hitbox(data.Width, data.Height);
             assetKey = data.Attr("assetKey", "shroompage");
 
-            enableFlag = data.Attr("enableFlag");
-            if(enableFlag[0] == '!') {
+            enableFlag = data.Attr("enableFlag", "");
+            if(enableFlag.Length > 1 && enableFlag[0] == '!') {
                 enableFlagInverted = true;
                 enableFlag = enableFlag[1..];
             }
 
-            readFlag = data.Attr("readFlag");
-            if(readFlag[0] == '!') {
+            readFlag = data.Attr("readFlag", "");
+            if(readFlag.Length > 1 && readFlag[0] == '!') {
                 readFlagInverted = true;
                 readFlag = readFlag[1..];
             }
