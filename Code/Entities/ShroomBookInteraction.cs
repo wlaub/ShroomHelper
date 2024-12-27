@@ -5,7 +5,6 @@ using Monocle;
 namespace Celeste.Mod.ShroomHelper.Entities {
     [CustomEntity("ShroomHelper/ShroomBookInteraction")]
     public class ShroomBookInteraction : Entity {
-        public const string FlagPrefix = "it_";
         public TalkComponent Talker;
         public string assetKey;
         public string enableFlag;
@@ -20,15 +19,15 @@ namespace Celeste.Mod.ShroomHelper.Entities {
             assetKey = data.Attr("assetKey", "shroompage");
 
             enableFlag = data.Attr("enableFlag", "");
-            if(enableFlag.Length > 1 && enableFlag[0] == '!') {
+            if (!string.IsNullOrWhiteSpace(enableFlag) && enableFlag[0] == '!') {
                 enableFlagInverted = true;
-                enableFlag = enableFlag[1..];
+                enableFlag = enableFlag.Substring(1);
             }
 
             readFlag = data.Attr("readFlag", "");
-            if(readFlag.Length > 1 && readFlag[0] == '!') {
+            if (!string.IsNullOrWhiteSpace(readFlag) && readFlag[0] == '!') {
                 readFlagInverted = true;
-                readFlag = readFlag[1..];
+                readFlag = readFlag.Substring(1);
             }
 
 
@@ -42,11 +41,9 @@ namespace Celeste.Mod.ShroomHelper.Entities {
         }
 
         public override void Awake(Scene scene) {
-
-            if(enableFlag == "" || SceneAs<Level>().Session.GetFlag(enableFlag) != enableFlagInverted) {
+            if (string.IsNullOrWhiteSpace(enableFlag) || SceneAs<Level>().Session.GetFlag(enableFlag) != enableFlagInverted) {
                 base.Awake(scene);
-            }
-            else {
+            } else {
                 RemoveSelf();
             }
         }

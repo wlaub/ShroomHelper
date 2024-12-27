@@ -11,7 +11,7 @@ namespace Celeste.Mod.ShroomHelper.Entities {
         private readonly bool readFlagInverted;
         private PoemPage poem;
 
-        public ShroomBook(Player player, string bookTextKey, string readFlag, bool readFlagInverted) {
+        public ShroomBook(Player player, string bookTextKey, string readFlag = "", bool readFlagInverted = false) {
             this.player = player;
             this.bookTextKey = bookTextKey;
             this.readFlag = readFlag;
@@ -25,10 +25,8 @@ namespace Celeste.Mod.ShroomHelper.Entities {
         public override void OnEnd(Level level) {
             player.StateMachine.Locked = false;
             player.StateMachine.State = Player.StNormal;
-            if (poem != null) {
-                poem.RemoveSelf();
-            }
-            if(readFlag != "") {
+            poem?.RemoveSelf();
+            if (!string.IsNullOrWhiteSpace(readFlag)) {
                 level.Session.SetFlag(readFlag, !readFlagInverted);
             }
         }
